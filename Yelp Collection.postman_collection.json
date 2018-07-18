@@ -1,0 +1,239 @@
+{
+	"info": {
+		"_postman_id": "a351c19d-f425-432f-a9eb-45fcb5138da0",
+		"name": "Yelp Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SeattleBusinesses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "89361366-35b7-4e1f-8789-b7a8967e875b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"tests[\"Response contains Pike Place Chowder as name\"] = responseBody.has('\"name\": \"Pike Place Chowder\"');",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "PeSbDdgBYgV6yz2DAdDBygRTj2CPQiNNF3qxx3Xk7W3epK_62gh_EwuOIluOJqCdHuO2ExUTdtsy-ifsFU7zDQB3PzFZzcT7qEOqsZuxqvZW9BM3RoGsTnOQZ3BPW3Yx",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://api.yelp.com/v3/businesses/search?location=Seattle, WA",
+					"protocol": "https",
+					"host": [
+						"api",
+						"yelp",
+						"com"
+					],
+					"path": [
+						"v3",
+						"businesses",
+						"search"
+					],
+					"query": [
+						{
+							"key": "location",
+							"value": "Seattle, WA"
+						}
+					]
+				},
+				"description": "Finds all businesses from Seattle, WA with at least one Yelp review, and tests whether the business name Pike Place Chowder is present. "
+			},
+			"response": []
+		},
+		{
+			"name": "PikePlaceChowderReviews",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "537cae67-3565-4197-a126-5f39cd1e62ab",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "PeSbDdgBYgV6yz2DAdDBygRTj2CPQiNNF3qxx3Xk7W3epK_62gh_EwuOIluOJqCdHuO2ExUTdtsy-ifsFU7zDQB3PzFZzcT7qEOqsZuxqvZW9BM3RoGsTnOQZ3BPW3Yx",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://api.yelp.com/v3/businesses/6I28wDuMBR5WLMqfKxaoeg/reviews",
+					"protocol": "https",
+					"host": [
+						"api",
+						"yelp",
+						"com"
+					],
+					"path": [
+						"v3",
+						"businesses",
+						"6I28wDuMBR5WLMqfKxaoeg",
+						"reviews"
+					]
+				},
+				"description": "Gets the first 3 reviews for Pike Place Chowder in Seattle. "
+			},
+			"response": []
+		},
+		{
+			"name": "EventsSearch",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "PeSbDdgBYgV6yz2DAdDBygRTj2CPQiNNF3qxx3Xk7W3epK_62gh_EwuOIluOJqCdHuO2ExUTdtsy-ifsFU7zDQB3PzFZzcT7qEOqsZuxqvZW9BM3RoGsTnOQZ3BPW3Yx",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://api.yelp.com/v3/events?sort_by=asc&start_date=1530774001&end_date=1530860399&location=705 Pike St, Seattle, WA 98101&radius=8047",
+					"protocol": "https",
+					"host": [
+						"api",
+						"yelp",
+						"com"
+					],
+					"path": [
+						"v3",
+						"events"
+					],
+					"query": [
+						{
+							"key": "sort_by",
+							"value": "asc"
+						},
+						{
+							"key": "start_date",
+							"value": "1530774001",
+							"description": "July 5th 2018 00:00:01 as Unix timestamp"
+						},
+						{
+							"key": "end_date",
+							"value": "1530860399",
+							"description": "July 5th 2018 23:59:59  as Unix timestamp"
+						},
+						{
+							"key": "location",
+							"value": "705 Pike St, Seattle, WA 98101",
+							"description": "originating location "
+						},
+						{
+							"key": "radius",
+							"value": "8047",
+							"description": "5 miles in meters, rounded up"
+						}
+					]
+				},
+				"description": "Get first 3 events within 5 miles of Washington State Convention Center (in Seattle, WA) on July 5th, 2018. "
+			},
+			"response": []
+		},
+		{
+			"name": "Categories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4cad1b06-9ec9-4e47-8d4a-085ef57b9ef8",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Body contains the string 3dprinting\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"3dprinting\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "PeSbDdgBYgV6yz2DAdDBygRTj2CPQiNNF3qxx3Xk7W3epK_62gh_EwuOIluOJqCdHuO2ExUTdtsy-ifsFU7zDQB3PzFZzcT7qEOqsZuxqvZW9BM3RoGsTnOQZ3BPW3Yx",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://api.yelp.com/v3/categories?locale=en_BE",
+					"protocol": "https",
+					"host": [
+						"api",
+						"yelp",
+						"com"
+					],
+					"path": [
+						"v3",
+						"categories"
+					],
+					"query": [
+						{
+							"key": "locale",
+							"value": "en_BE"
+						}
+					]
+				},
+				"description": "Gets the Yelp business categories in Belgium and tests whether the category \"3dprinting\" is present."
+			},
+			"response": []
+		}
+	]
+}
